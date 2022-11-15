@@ -1,7 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import axios from 'axios'
 import Home from './components/Home/Home';
 import Operations from './components/Operations/Operations';
 import Breakdown from './components/Breakdown/Breakdown';
@@ -9,6 +10,16 @@ import Balance from './components/Balance/Balance';
 
 
 function App() {
+
+  const[transactions, setTransactions] = useState([])
+  const[balance, setBalance] = useState(0)
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/transactions').then((res) => { 
+    setTransactions(res.data)
+    })
+  }, [])
+
   return (
     <Router>
       <div className="App">
@@ -16,9 +27,9 @@ function App() {
           <Link to='/' className='link'>Home </Link>
           <Link to='/operations' className='link'>Operations </Link>
           <Link to='/breakdown' className='link'>Breakdown </Link>
-          <Balance />
+          <Balance transactions={transactions}/>
         </div>
-        <Route path="/" exact render={()=> <Home/>}/>
+        <Route path="/" exact render={()=> <Home transactions={transactions}/>}/>
         <Route path='/operations' exact render={()=> <Operations />}/>
         <Route path='/breakdown' exact render={()=> <Breakdown />}/>
       </div>

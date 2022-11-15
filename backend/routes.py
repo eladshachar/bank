@@ -3,7 +3,8 @@ from pydantic import BaseModel
 from transaction import Transaction
 from DBmethods import (
     insert_transaction,
-    get_categories
+    get_categories,
+    get_all_transactions
 )
 
 transactions_route = APIRouter()
@@ -12,11 +13,14 @@ transactions_route = APIRouter()
 def get_transactions(category = None):
     
     try:
-        if (not category):
+        if (category):
             return
+        else:
+            print("get all transactions")
+            return get_all_transactions()
+    except:
+        print("Failed")
     
-    except Exception as e:
-        return e
 
 
 @transactions_route.get('/categories', status_code=status.HTTP_200_OK)

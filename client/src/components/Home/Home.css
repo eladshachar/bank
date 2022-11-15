@@ -1,0 +1,10 @@
+th {
+    border-bottom: 1px solid black;
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+
+  table {
+    margin: 10px;
+    border: 1px solid;
+  }

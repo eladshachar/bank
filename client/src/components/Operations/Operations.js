@@ -1,13 +1,11 @@
 import React from 'react'
+import TransactionForm from '../TransactionForm/TransactionForm'
 
 export default function Operations() {
 
     return(
         <div>
-            <select id='transaction-type'>
-                <option value='deposit'>deposit</option>
-                <option value='withdrawl'>withdrawl</option>
-            </select>
+           <TransactionForm /> 
         </div>
     )
 }

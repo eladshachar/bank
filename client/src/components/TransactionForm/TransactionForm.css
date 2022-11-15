@@ -1,0 +1,17 @@
+#add-container {
+    display: inline-block;
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid;
+}
+
+.input {
+    position: relative;
+    display: block;
+    margin-top: 15px;
+}
+
+#submit-button {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
