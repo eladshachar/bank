@@ -3,6 +3,10 @@ import React from 'react'
 export default function Breakdown() {
 
     return(
-        <div>Breakdown</div>
+        <div>
+            <div id='categories-container'>
+                
+            </div>
+        </div>
     )
 }
