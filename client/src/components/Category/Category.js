@@ -5,6 +5,7 @@ export default function Category(props) {
 
     const filterByCategory = () => {
         props.filterByCategory(props.category.name)
+        props.updateCategory(props.updateCategory)
     }
     
     

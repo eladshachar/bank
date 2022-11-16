@@ -11,20 +11,37 @@ import Transactions from './components/Transactions/Transactions';
 
 function App() {
 
-  const[transactions, setTransactions] = useState([])
+  const [transactions, setTransactions] = useState([])
+  const [filteredTransactions, setFilteredTransactions] = useState([])
+  const [currentCategory, setCurrentCategory] = useState("nothing")
 
   useEffect(() => {
+    getAllTransactions()
+    filterByCategory(currentCategory)
+  }, [])
+
+  
+  const updateCategory = category => {
+    setCurrentCategory(category)
+  }
+
+  const getAllTransactions = () => {
     axios.get('http://127.0.0.1:8000/transactions').then((res) => { 
     setTransactions(res.data)
     })
-  }, [])
-
+  }
 
   const removeTransaction = id => {
     axios.delete(`http://127.0.0.1:8000/transactions?id=${id}`).then(()=> {
       window.location.reload(false)
     })
   }
+
+  const filterByCategory = category => {
+    axios.get(`http://127.0.0.1:8000/transactions?category=${category}`).then((result)=> {
+        setFilteredTransactions(result.data)
+    })
+}
 
 
   return (
@@ -38,7 +55,7 @@ function App() {
         </div>
         <Route path="/" exact render={()=> <Transactions transactions={transactions} removeTransaction={removeTransaction}/>}/>
         <Route path='/operations' exact render={()=> <Operations />}/>
-        <Route path='/expences' exact render={()=> <Expences transactions={transactions}/>}/>
+        <Route path='/expences' exact render={()=> <Expences filteredTransactions={filteredTransactions} filterByCategory={filterByCategory} removeTransaction={removeTransaction} updateCategory={updateCategory}/>}/>
       </div>
     </Router>
 
