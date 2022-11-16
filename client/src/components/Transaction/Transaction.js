@@ -19,7 +19,7 @@ export default function Transaction(props) {
             <td>{transaction.num_items}</td>
             <td>{transaction.amount}</td>
             <td>{transaction.created_date}</td>
-            <td><button id='remove' onClick={removeTransaction}>Remove</button></td>
+            <td><button className='remove-button' onClick={removeTransaction}>Remove</button></td>
        </tr>
     )
 }
