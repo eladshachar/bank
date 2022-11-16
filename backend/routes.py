@@ -4,7 +4,8 @@ from transaction import Transaction
 from DBmethods import (
     insert_transaction,
     get_categories,
-    get_all_transactions
+    get_all_transactions,
+    delete_transaction
 )
 
 transactions_route = APIRouter()
@@ -16,7 +17,6 @@ def get_transactions(category = None):
         if (category):
             return
         else:
-            print("get all transactions")
             return get_all_transactions()
     except:
         print("Failed")
@@ -29,5 +29,10 @@ def get_categories_breakdown():
 
 
 @transactions_route.post('/operations', status_code=status.HTTP_201_CREATED)
-async def add_transaction(transaction: Transaction):
-    return {'message': transaction.amount}
+def add_transaction(transaction: Transaction):
+    return insert_transaction(transaction)
+
+
+@transactions_route.delete('/transactions', status_code=status.HTTP_200_OK)
+def remove_transaction(id: int):
+    delete_transaction(id)

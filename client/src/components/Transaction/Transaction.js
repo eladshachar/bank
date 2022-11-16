@@ -3,16 +3,23 @@ import './Transaction.css'
 
 export default function Transaction(props) {
 
+    const transaction = props.transaction
+
+    const removeTransaction = () => {
+        props.removeTransaction(transaction.transaction_id)
+    }
+
     return(
-       <tr>
-            <td>{props.transaction.transaction_id}</td>
-            <td>{props.transaction.transaction_type}</td>
-            <td>{props.transaction.product}</td>
-            <td>{props.transaction.category}</td>
-            <td>{props.transaction.vendor}</td>
-            <td>{props.transaction.num_items}</td>
-            <td>{props.transaction.amount}</td>
-            <td><button id='remove'>Remove</button></td>
+       <tr className={transaction.transaction_type === 'deposit' ? 'deposit' : 'withdrawl'}>
+            <td>{transaction.transaction_id}</td>
+            <td>{transaction.transaction_type}</td>
+            <td>{transaction.product}</td>
+            <td>{transaction.category}</td>
+            <td>{transaction.vendor}</td>
+            <td>{transaction.num_items}</td>
+            <td>{transaction.amount}</td>
+            <td>{transaction.created_date}</td>
+            <td><button id='remove' onClick={removeTransaction}>Remove</button></td>
        </tr>
     )
 }

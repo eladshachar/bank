@@ -16,10 +16,11 @@ export default function Home(props) {
                 <th>Vendor</th>
                 <th>Number Of Items</th>
                 <th>Amount</th>
+                <th>Time</th>
                 <tbody>
                     {props.transactions.map(t=> {
                         return(
-                            <Transaction key={t.transaction_id} transaction={t}/>
+                            <Transaction key={t.transaction_id} transaction={t} removeTransaction={props.removeTransaction}/>
                         )
                     })}
                 </tbody> 

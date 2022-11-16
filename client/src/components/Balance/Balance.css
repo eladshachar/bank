@@ -1,3 +1,6 @@
 #balance {
-    display: inline-block;
+    display: inline;
+    float: right;
+    margin: 10px;
+    font-size: medium;
 }
