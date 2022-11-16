@@ -18,10 +18,11 @@ export default function Expences(props) {
     
     const getCategories = () => {
         axios.get('http://127.0.0.1:8000/categories').then((results)=> {
-            setCategories(results.data)
+            results.data !== null ? setCategories(results.data) : setCategories([])
         })
     }
 
+    
     return(
         <div>
             <h1>Expences By Category:</h1>

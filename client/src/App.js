@@ -27,6 +27,7 @@ function App() {
   const getAllTransactions = () => {
     axios.get('http://127.0.0.1:8000/transactions').then((res) => { 
     setTransactions(res.data)
+    res.data !== null ? setTransactions(res.data) : setTransactions([])
     })
   }
 
@@ -37,10 +38,10 @@ function App() {
   }
 
   const filterByCategory = category => {
-    axios.get(`http://127.0.0.1:8000/transactions?category=${category}`).then((result)=> {
-        setFilteredTransactions(result.data)
+    axios.get(`http://127.0.0.1:8000/transactions?category=${category}`).then((result)=> { 
+        result.data !== null ? setFilteredTransactions(result.data) : setFilteredTransactions([])
     })
-}
+  }
 
 
   return (
