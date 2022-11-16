@@ -1,0 +1,8 @@
+.category-container {
+    display: inline-block;
+    max-width: 50%;
+    background-color: lightgray;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5%;
+}

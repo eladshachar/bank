@@ -20,6 +20,6 @@ export default function Balance(props) {
     }, [props.transactions])
     
     return(
-        <div id='balance'>Balance: {balance}</div>
+        <div id={balance < 0 ? 'balance-negative' : 'balance-positive'}>Balance: {balance}</div>
     )
 }

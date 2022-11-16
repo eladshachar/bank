@@ -5,7 +5,8 @@ from DBmethods import (
     insert_transaction,
     get_categories,
     get_all_transactions,
-    delete_transaction
+    delete_transaction,
+    get_transactions_by_category
 )
 
 transactions_route = APIRouter()
@@ -15,7 +16,7 @@ def get_transactions(category = None):
     
     try:
         if (category):
-            return
+            return get_transactions_by_category(category)
         else:
             return get_all_transactions()
     except:

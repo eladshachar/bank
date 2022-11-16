@@ -29,7 +29,7 @@ def insert_transaction(transaction: Transaction):
 def get_categories():
     try:
         with connection.cursor() as cursor:
-            query = 'SELECT category, SUM(amount) AS count FROM transactions GROUP BY category;'
+            query = 'SELECT category As name, SUM(amount) AS sum FROM transactions WHERE transaction_type = "withdrawl" GROUP BY category;'
             cursor.execute(query)
             result = cursor.fetchall()
             return result
@@ -47,11 +47,23 @@ def get_all_transactions():
     except Exception as e:
         return e
 
+
 def delete_transaction(id: int):
     try:
         with connection.cursor() as cursor:
             query = f'DELETE FROM transactions WHERE transaction_id={id};'
             cursor.execute(query)
             connection.commit()
+    except Exception as e:
+        return e
+
+
+def get_transactions_by_category(category: str):
+    try:
+        with connection.cursor() as cursor:
+            query = f'SELECT * FROM transactions WHERE category = "{category}"'
+            cursor.execute(query)
+            result = cursor.fetchall()
+            return result
     except Exception as e:
         return e

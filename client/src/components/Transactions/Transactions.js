@@ -1,9 +1,8 @@
 import React, { useMemo, useEffect, useState } from 'react'
 import Transaction from '../Transaction/Transaction'
-import { useTable } from "react-table";
-import './Home.css'
+import './Transactions.css'
 
-export default function Home(props) {
+export default function Transactions(props) {
 
     
     return(
