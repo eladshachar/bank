@@ -30,5 +30,5 @@ USE bank_app;
 -- INSERT INTO transactions (transaction_type, product, category, vendor, num_items, amount)
 -- VALUES ("withdrawl", "cream", "dairy", "Tnuva", 1, 3);
 
-INSERT INTO transactions (transaction_type, product, category, vendor, num_items, amount)
-VALUES ("deposit", null, null, null, null, 24);
+-- INSERT INTO transactions (transaction_type, product, category, vendor, num_items, amount)
+-- VALUES ("deposit", null, null, null, null, 24);
