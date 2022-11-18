@@ -1,9 +1,0 @@
-#categories-container {
-    overflow-x: scroll;
-    overflow-y: hidden;
-    white-space: nowrap;
-}
-
-#filtered-results {
-    height: 100%;
-}

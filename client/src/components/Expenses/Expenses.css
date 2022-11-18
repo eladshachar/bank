@@ -1,0 +1,16 @@
+#expenses-container {
+    width: 100%
+}
+
+#categories-container {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    min-width: 400px;
+    max-width: 1000px;
+}
+
+#filtered-results {
+    min-width: 400px;
+    max-width: 1000px;
+}

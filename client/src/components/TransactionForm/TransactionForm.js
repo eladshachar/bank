@@ -27,7 +27,7 @@ export default function TransactionForm() {
     
 
     const addTransaction = () => {
-      axios.post('http://127.0.0.1:8000/operations', transaction).then((response)=> {
+        axios.post('http://127.0.0.1:8000/operations', transaction).then((response)=> {
         console.log(response.status)
       })  
     }

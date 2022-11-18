@@ -1,4 +1,4 @@
-#main-links {
+#header {
   background-color: #e7eaf6;
 }
 
@@ -6,4 +6,12 @@
   font-size: x-large;
   display: inline;
   margin: 10px;
+}
+
+#main-container {
+  height: 80%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

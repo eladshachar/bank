@@ -1,13 +1,8 @@
 from fastapi import APIRouter, status
 from pydantic import BaseModel
 from transaction import Transaction
-from DBmethods import (
-    insert_transaction,
-    get_categories,
-    get_all_transactions,
-    delete_transaction,
-    get_transactions_by_category
-)
+import DBmethods as db
+
 
 transactions_route = APIRouter()
 
@@ -16,9 +11,9 @@ def get_transactions(category = None):
     
     try:
         if (category):
-            return get_transactions_by_category(category)
+            return db.get_transactions_by_category(category)
         else:
-            return get_all_transactions()
+            return db.get_all_transactions()
     except:
         print("Failed")
     
@@ -26,14 +21,14 @@ def get_transactions(category = None):
 
 @transactions_route.get('/categories', status_code=status.HTTP_200_OK)
 def get_categories_breakdown():
-    return get_categories()
+    return db.get_categories()
 
 
 @transactions_route.post('/operations', status_code=status.HTTP_201_CREATED)
 def add_transaction(transaction: Transaction):
-    return insert_transaction(transaction)
+    return db.insert_transaction(transaction)
 
 
-@transactions_route.delete('/transactions', status_code=status.HTTP_200_OK)
+@transactions_route.delete('/transactions/{id}', status_code=status.HTTP_200_OK)
 def remove_transaction(id: int):
-    delete_transaction(id)
+    db.delete_transaction(id)

@@ -2,9 +2,9 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Category from '../Category/Category'
 import Transactions from '../Transactions/Transactions'
-import './Expences.css'
+import './Expenses.css'
 
-export default function Expences(props) {
+export default function Expenses(props) {
 
     const [categories, setCategories] = useState([])
     
@@ -12,24 +12,24 @@ export default function Expences(props) {
     
     useEffect(()=> {
         getCategories()
-    }, [props.transactions])
+    }, [props.filteredTransactions])
     
     
     
     const getCategories = () => {
         axios.get('http://127.0.0.1:8000/categories').then((results)=> {
-            results.data !== null ? setCategories(results.data) : setCategories([])
+            results.data !== Object ? setCategories(results.data) : setCategories([])
         })
     }
 
     
     return(
-        <div>
-            <h1>Expences By Category:</h1>
+        <div id='expenses-container'>
+            <h1>Expenses By Category:</h1>
             <div id='categories-container'>
                {categories.map(c=> {
                     return(
-                      <Category key={c.name} category={c} filterByCategory={props.filterByCategory}/>
+                      <Category key={c.name} category={c} filterByCategory={props.filterByCategory} updateCategory={props.updateCategory}/>
                     )
                })} 
             </div>
