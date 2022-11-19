@@ -22,8 +22,7 @@ def insert_transaction(transaction: Transaction):
             cursor.execute(query)
             connection.commit()
     except Exception as e:
-        print("Failed to create transaction")
-        return e
+        print(e)
 
 
 def get_categories():
@@ -34,7 +33,7 @@ def get_categories():
             result = cursor.fetchall()
             return result
     except Exception as e:
-        return e
+        print(e)
 
 
 def get_all_transactions():
@@ -45,7 +44,7 @@ def get_all_transactions():
             result = cursor.fetchall()
             return result
     except Exception as e:
-        return e
+        print(e)
 
 
 def delete_transaction(id: int):
@@ -55,7 +54,7 @@ def delete_transaction(id: int):
             cursor.execute(query)
             connection.commit()
     except Exception as e:
-        return e
+        print(e)
 
 
 def get_transactions_by_category(category: str):
@@ -66,4 +65,18 @@ def get_transactions_by_category(category: str):
             result = cursor.fetchall()
             return result
     except Exception as e:
-        return e
+        print(e)
+
+
+def check_transaction_existence(id: int):
+    try:
+        with connection.cursor() as cursor:
+            query = f'SELECT * FROM transactions WHERE transaction_id = {id}'
+            cursor.execute(query)
+            
+            if cursor.rowcount != 0 :
+                return True
+            else:
+                return False
+    except Exception as e:
+        print (e)

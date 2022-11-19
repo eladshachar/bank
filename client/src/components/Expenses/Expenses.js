@@ -17,8 +17,8 @@ export default function Expenses(props) {
     
     
     const getCategories = () => {
-        axios.get('http://127.0.0.1:8000/categories').then((results)=> {
-            results.data !== Object ? setCategories(results.data) : setCategories([])
+        axios.get('http://127.0.0.1:8000/categories').then((result)=> {
+            result !== null && Array.isArray(result.data) ? setCategories(result.data) : setCategories([])
         })
     }
 

@@ -26,21 +26,30 @@ function App() {
 
   const getAllTransactions = () => {
     axios.get('http://127.0.0.1:8000/transactions').then((res) => { 
-    setTransactions(res.data)
-    res.data !== Object ? setTransactions(res.data) : setTransactions([])
+      res !== null && Array.isArray(res.data) ? setTransactions(res.data) : setTransactions([])
+    })
+    .catch((error)=> {
+      console.log(error)
     })
   }
 
   const removeTransaction = id => {
     axios.delete(`http://127.0.0.1:8000/transactions/${id}`).then(()=> {
       getAllTransactions()
-      filterByCategory()
+      filterByCategory(currentCategory)
+    })
+    .catch((error)=> {
+      console.log(error)
     })
   }
 
   const filterByCategory = category => {
     axios.get(`http://127.0.0.1:8000/transactions?category=${category}`).then((result)=> { 
-        result.data !== Object ? setFilteredTransactions(result.data) : setFilteredTransactions([])
+      console.log(result)  
+      result !== null && Array.isArray(result.data) ? setFilteredTransactions(result.data) : setFilteredTransactions([])
+    })
+    .catch((error)=> {
+      console.log(error)
     })
   }
 
