@@ -32,3 +32,5 @@ USE bank_app;
 
 -- INSERT INTO transactions (transaction_type, product, category, vendor, num_items, amount)
 -- VALUES ("deposit", null, null, null, null, 24);
+
+-- DELETE FROM transactions WHERE transaction_id=200;

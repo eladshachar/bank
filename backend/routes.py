@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter, status, HTTPException
 from pydantic import BaseModel
 from transaction import Transaction
 import DBmethods as db
@@ -31,4 +31,8 @@ def add_transaction(transaction: Transaction):
 
 @transactions_route.delete('/transactions/{id}', status_code=status.HTTP_200_OK)
 def remove_transaction(id: int):
-    db.delete_transaction(id)
+   if db.check_transaction_existence(id) == True:
+        db.delete_transaction(id)
+        return {"result": f"transaction {id} deleted"}
+   else:
+        raise HTTPException(status_code=404, detail='transaction does not exist in the database')     
