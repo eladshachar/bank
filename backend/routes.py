@@ -9,13 +9,18 @@ transactions_route = APIRouter()
 @transactions_route.get('/transactions', status_code=status.HTTP_200_OK)
 def get_transactions(category = None):
     
-    try:
-        if (category):
+    if(category):
+        try:
             return db.get_transactions_by_category(category)
-        else:
+        except:
+            raise HTTPException(status_code=404, detail="Bad request: category does not exist")
+    
+    else:
+        try:
             return db.get_all_transactions()
-    except:
-        print("Failed")
+        except:
+            raise HTTPException(status_code=400, detail="Bad request")
+ 
     
 
 
