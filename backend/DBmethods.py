@@ -8,7 +8,7 @@ connection = pymysql.connect(
     password="",
     db="bank_app",
     charset="utf8",
-    cursorclass=pymysql.cursors.DictCursor,
+    cursorclass=pymysql.cursors.DictCursor
 )
 
 

@@ -15,11 +15,11 @@ function MainContainer(props) {
 
   useEffect(() => {
     getAllTransactions()
-    filterByCategory(currentCategory)
   }, [])
 
   useEffect(()=> {
     calculateBalance()
+    filterByCategory(currentCategory)
   }, [transactions])
 
   
@@ -36,10 +36,9 @@ function MainContainer(props) {
     })
   }
 
-  const removeTransaction = id => {
+  const removeTransaction = async(id) => {
     axios.delete(`http://127.0.0.1:8000/transactions/${id}`).then(()=> {
       getAllTransactions()
-      filterByCategory(currentCategory)
     })
     .catch((error)=> {
       console.log(error)

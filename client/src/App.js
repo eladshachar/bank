@@ -1,11 +1,7 @@
 import './App.css';
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
-import axios from 'axios'
-import Operations from './components/Operations/Operations';
-import Expenses from './components/Expenses/Expenses';
 import Balance from './components/Balance/Balance';
-import Transactions from './components/Transactions/Transactions';
 import MainContainer from './components/MainContainer/MainContainer';
 
 

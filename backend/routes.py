@@ -35,8 +35,10 @@ def add_transaction(transaction: Transaction):
 
 
 @transactions_route.delete('/transactions/{id}', status_code=status.HTTP_200_OK)
-def remove_transaction(id: int):
-   if db.check_transaction_existence(id) == True:
+async def remove_transaction(id: int):
+   exist = False
+   exist = db.check_transaction_existence(id)
+   if exist == True:
         db.delete_transaction(id)
         return {"result": f"transaction {id} deleted"}
    else:
