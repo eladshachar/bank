@@ -6,5 +6,5 @@ class Transaction(BaseModel):
     product: Union[str, None] = None
     category: Union[str, None] = None
     vendor: Union[str, None] = None
-    num_items: Union[str, None] = None
+    num_items: Union[int, None] = None
     amount: float
