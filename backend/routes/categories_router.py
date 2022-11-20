@@ -1,5 +1,5 @@
 from fastapi import APIRouter, status, HTTPException
-import DBmethods as db
+import DBqueries as db
 
 categories_route = APIRouter()
 

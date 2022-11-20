@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status, HTTPException
 from transaction import Transaction
-import DBmethods as db
+import DBqueries as db
 
 
 transactions_route = APIRouter()
@@ -13,13 +13,13 @@ def get_transactions(category = None):
             return db.get_transactions_by_category(category)
         except:
             raise HTTPException(status_code=404, detail="Bad request: category does not exist")
-    
+
     else:
         try:
             return db.get_all_transactions()
         except:
-            raise HTTPException(status_code = status.HTTP_400_BAD_REQUEST, detail="Bad request: transaction was not added")
- 
+            raise HTTPException(status_code = status.HTTP_400_BAD_REQUEST, detail="Bad request: transactions were not fetched")
+
     
 
 @transactions_route.post('/transactions', status_code=status.HTTP_201_CREATED)

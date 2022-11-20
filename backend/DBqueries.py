@@ -28,27 +28,29 @@ def insert_transaction(transaction: Transaction):
 
 
 def get_categories():
-    try:
-        connection.ping()
-        with connection.cursor() as cursor:
-            query = 'SELECT category As name, SUM(amount) AS sum FROM transactions WHERE transaction_type = "withdrawl" GROUP BY category;'
-            cursor.execute(query)
+    connection.ping()
+    with connection.cursor() as cursor:
+        query = 'SELECT category As name, SUM(amount) AS sum FROM transactions WHERE transaction_type = "withdrawl" GROUP BY category;'
+        cursor.execute(query)
+        if(cursor.rowcount == 0):
+            raise HTTPException(status_code = status.HTTP_204_NO_CONTENT, detail = "No results to show")
+        else:
             result = cursor.fetchall()
             return result
-    except Exception as e:
-        print(e)
+
 
 
 def get_all_transactions():
-    try:
-        connection.ping()
-        with connection.cursor() as cursor:
-            query = 'SELECT * FROM transactions;'
-            cursor.execute(query)
+    connection.ping()
+    with connection.cursor() as cursor:
+        query = 'SELECT * FROM transactions;'
+        cursor.execute(query)
+        if(cursor.rowcount == 0):
+            raise HTTPException(status_code = status.HTTP_204_NO_CONTENT, detail = "No results to show")
+        else:
             result = cursor.fetchall()
             return result
-    except Exception as e:
-        print(e)
+
 
 
 def delete_transaction(id: int):
@@ -63,20 +65,18 @@ def delete_transaction(id: int):
 
 
 def get_transactions_by_category(category: str):
-    try:
-        connection.ping()
-        with connection.cursor() as cursor:
-            query = f'SELECT * FROM transactions WHERE transaction_type = "withdrawl" AND category = "{category}"'
-            cursor.execute(query)
-            
-            if cursor.rowcount == 0:
-                raise HTTPException(status_code = status.HTTP_404_NOT_FOUND, detail = "Category does not exist")
-            else:
-                result = cursor.fetchall()
-                return result
 
-    except Exception as e:
-        print(e)
+    connection.ping()
+    with connection.cursor() as cursor:
+        query = f'SELECT * FROM transactions WHERE transaction_type = "withdrawl" AND category = "{category}"'
+        cursor.execute(query)
+        
+        if cursor.rowcount == 0:
+            raise HTTPException(status_code = status.HTTP_404_NOT_FOUND, detail = "Category does not exist")
+        else:
+            result = cursor.fetchall()
+            return result
+
 
 
 def check_transaction_existence(id: int):

@@ -8,7 +8,7 @@ const getTransactionsFromAPI = async () => {
        console.log(error) 
     })
     
-    if(response !== null && Array.isArray(response.data)) {
+    if(response !== undefined && Array.isArray(response.data)) {
        transactions = response.data
     }   
 
