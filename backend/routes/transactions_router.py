@@ -29,6 +29,7 @@ def add_transaction(transaction: Transaction):
     except:
         raise HTTPException(status_code=400, detail="Bad request")
 
+
 @transactions_route.delete('/transactions/{id}', status_code=status.HTTP_200_OK)
 async def remove_transaction(id: int):
    exist = False
