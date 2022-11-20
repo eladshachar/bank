@@ -1,12 +1,12 @@
 import './MainContainer.css'
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
-import Operations from '../Operations/Operations';
-import Expenses from '../Expenses/Expenses';
-import Transactions from '../Transactions/Transactions';
+import Expenses from './Expenses/Expenses';
+import Transactions from './Transactions/Transactions';
 import getTransactionsFromAPI from '../../API-calls/getTransactionsFromAPI';
 import getFilteredTransactionsFromAPI from '../../API-calls/getFilteredTansactionsFromAPI';
 import removeTransactionFromAPI from '../../API-calls/removeTransactionFromAPI';
+import Operations from './Operations/Operations';
 
 
 function MainContainer(props) {
@@ -15,9 +15,11 @@ function MainContainer(props) {
   const [filteredTransactions, setFilteredTransactions] = useState([])
   const [currentCategory, setCurrentCategory] = useState("nothing")
 
+  
   useEffect(() => {
     getAllTransactions()
   }, [])
+
 
   useEffect(()=> {
     calculateBalance()
@@ -43,6 +45,7 @@ function MainContainer(props) {
         setFilteredTransactions(res)
     })
   }
+
 
   const removeTransaction = id => {
     removeTransactionFromAPI(id).then(()=> {

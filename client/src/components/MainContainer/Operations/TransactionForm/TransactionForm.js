@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './TransactionForm.css'
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import addTransactionToAPI from '../../../API-calls/addTransactionToAPI';
+import addTransactionToAPI from '../../../../API-calls/addTransactionToAPI';
 
 const initialTransactionValues ={
     transaction_type: "deposit",
@@ -20,7 +20,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 
-export default function TransactionForm() {
+export default function TransactionForm(props) {
     
 
     const [transaction, setTransaction] = useState(initialTransactionValues)
@@ -37,13 +37,24 @@ export default function TransactionForm() {
     }
     
 
-    const addTransaction = () => {
-        
-        addTransactionToAPI(transaction).then((res)=> {
-            res == true ? setStatus("success") : setStatus("error")
-            res == true ? setStatusText("Added successfully!") : setStatusText("Failed")
+    const addTransaction = (e) => {
+        if(e.target["transaction_type"] === 'withdrawl' && props.balance < 500){
+            e.preventDefault()
+            setStatus("warning")
+            console.log("warning")
+            setStatusText("Insufficient Funds")
             setOpen(true)
-        })
+        }
+        else if(transaction.amount !== 0){
+            addTransactionToAPI(transaction).then((res)=> {
+                res == true ? setStatus("success") : setStatus("error")
+                res == true ? setStatusText("Added successfully!") : setStatusText("Failed")
+                setOpen(true)
+
+                
+            })
+        }
+        
     }
 
 
@@ -69,7 +80,7 @@ export default function TransactionForm() {
             <input className='input' name='category' placeholder='Category' onChange={handleInputChange}></input>
             <input className='input' name='vendor' placeholder='Vendor' onChange={handleInputChange}></input>
             <input className='input' name='num_items' placeholder='Number of Items' onChange={handleInputChange}></input>
-            <input className='input' name='amount' placeholder='Amount in Dollars' onChange={handleInputChange}></input>
+            <input className='input' name='amount' placeholder='Amount in Dollars' onChange={handleInputChange} required></input>
             <button id='submit-button' onClick={addTransaction}>Submit</button>
 
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>

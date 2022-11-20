@@ -23,7 +23,7 @@ function App() {
     <Router>
       <div className="App">
         <Header balance={balance}/>
-        <MainContainer calculateBalance={calculateBalance}/>
+        <MainContainer calculateBalance={calculateBalance} balance={balance}/>
       </div>
     </Router>
 

@@ -1,11 +1,11 @@
 import React from 'react'
 import TransactionForm from './TransactionForm/TransactionForm'
 
-export default function Operations() {
+export default function Operations(props) {
 
     return(
         <div>
-           <TransactionForm /> 
+           <TransactionForm balance={props.balance}/> 
         </div>
     )
 }
