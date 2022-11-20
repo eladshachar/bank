@@ -1,5 +1,6 @@
 import pymysql
 from transaction import Transaction
+from fastapi import HTTPException, status
 
 
 connection = pymysql.connect(
@@ -65,10 +66,15 @@ def get_transactions_by_category(category: str):
     try:
         connection.ping()
         with connection.cursor() as cursor:
-            query = f'SELECT * FROM transactions WHERE category = "{category}"'
+            query = f'SELECT * FROM transactions WHERE transaction_type = "withdrawl" AND category = "{category}"'
             cursor.execute(query)
-            result = cursor.fetchall()
-            return result
+            
+            if cursor.rowcount == 0:
+                raise HTTPException(status_code = status.HTTP_404_NOT_FOUND, detail = "Category does not exist")
+            else:
+                result = cursor.fetchall()
+                return result
+
     except Exception as e:
         print(e)
 
@@ -86,3 +92,4 @@ def check_transaction_existence(id: int):
                 return False
     except Exception as e:
         print (e)
+

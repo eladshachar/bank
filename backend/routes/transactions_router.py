@@ -18,7 +18,7 @@ def get_transactions(category = None):
         try:
             return db.get_all_transactions()
         except:
-            raise HTTPException(status_code=400, detail="Bad request")
+            raise HTTPException(status_code = status.HTTP_400_BAD_REQUEST, detail="Bad request: transaction was not added")
  
     
 
@@ -27,7 +27,7 @@ def add_transaction(transaction: Transaction):
     try:
         return db.insert_transaction(transaction)
     except:
-        raise HTTPException(status_code=400, detail="Bad request")
+        raise HTTPException(status_code = status.HTTP_400_BAD_REQUEST, detail="Bad request: transaction was not added")
 
 
 @transactions_route.delete('/transactions/{id}', status_code=status.HTTP_200_OK)
@@ -38,4 +38,4 @@ async def remove_transaction(id: int):
         db.delete_transaction(id)
         return {"result": f"transaction {id} deleted"}
    else:
-        raise HTTPException(status_code=404, detail='transaction does not exist in the database')     
+        raise HTTPException(status_code = status.HTTP_404_NOT_FOUND, detail='transaction does not exist in the database')     

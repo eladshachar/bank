@@ -33,7 +33,8 @@ def initialize_tables():
         category VARCHAR(255),
         vendor VARCHAR(255),
         num_items INTEGER,
-        amount FLOAT
+        amount FLOAT,
+        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     """
 

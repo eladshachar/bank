@@ -62,7 +62,7 @@ function MainContainer(props) {
   return (
     <div id='main-container'>
         <Route path="/" exact render={()=> <Transactions transactions={transactions} removeTransaction={removeTransaction}/>}/>
-        <Route path='/operations' exact render={()=> <Operations />}/>
+        <Route path='/operations' exact render={()=> <Operations balance={props.balance}/>}/>
         <Route path='/expenses' exact render={()=> <Expenses filteredTransactions={filteredTransactions} filterByCategory={filterByCategory} removeTransaction={removeTransaction} updateCategory={updateCategory}/>}/>
     </div>
   );

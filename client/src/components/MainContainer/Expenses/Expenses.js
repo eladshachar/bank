@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Category from './Category/Category'
 import Transactions from '../Transactions/Transactions'
 import './Expenses.css'
+import getCategoriesFromAPI from '../../../API-calls/getCategoriesfromAPI'
 
 export default function Expenses(props) {
 
@@ -17,9 +18,9 @@ export default function Expenses(props) {
     
     
     const getCategories = () => {
-        axios.get('http://127.0.0.1:8000/categories').then((result)=> {
-            result !== null && Array.isArray(result.data) ? setCategories(result.data) : setCategories([])
-        })
+       getCategoriesFromAPI().then((result)=> {
+        setCategories(result)
+       })
     }
 
     

@@ -3,15 +3,17 @@ import axios from "axios";
 const getFilteredTransactionsFromAPI = async(category) => {
     let transactions = []
     
-    await axios.get(`http://127.0.0.1:8000/transactions?category=${category}`)   
-      .then((result)=> {  
-        if(result !== null && Array.isArray(result.data)) {
-            transactions = result.data
-          }  
-      })
-      .catch((error)=> {
-         console.log(error)
-      })
+    let response =  await axios.get(`http://127.0.0.1:8000/transactions?category=${category}`)   
+    .catch((error)=> {
+      console.log(error)
+    })
+    
+    if(response !== null && Array.isArray(response.data)) {
+        transactions = response.data
+    }  
+
+
+    
     return transactions  
 }
 

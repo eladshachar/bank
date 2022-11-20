@@ -38,7 +38,8 @@ export default function TransactionForm(props) {
     
 
     const addTransaction = (e) => {
-        if(e.target["transaction_type"] === 'withdrawl' && props.balance < 500){
+
+        if(transaction.transaction_type === 'withdrawl' && props.balance < 500){
             e.preventDefault()
             setStatus("warning")
             console.log("warning")
@@ -50,8 +51,6 @@ export default function TransactionForm(props) {
                 res == true ? setStatus("success") : setStatus("error")
                 res == true ? setStatusText("Added successfully!") : setStatusText("Failed")
                 setOpen(true)
-
-                
             })
         }
         

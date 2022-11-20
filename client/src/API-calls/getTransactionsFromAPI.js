@@ -3,14 +3,16 @@ import axios from "axios";
 const getTransactionsFromAPI = async () => {
     let transactions = []
     
-    await axios.get('http://127.0.0.1:8000/transactions').then((res) => { 
-      if(res !== null && Array.isArray(res.data)) {
-        transactions = res.data
-      }   
-    })
+    let response = await axios.get('http://127.0.0.1:8000/transactions')
     .catch((error)=> {
-      console.log(error) 
+       console.log(error) 
     })
+    
+    if(response !== null && Array.isArray(response.data)) {
+       transactions = response.data
+    }   
+
+
 
     return transactions
   }
