@@ -39,10 +39,9 @@ export default function TransactionForm(props) {
 
     const addTransaction = (e) => {
 
-        if(transaction.transaction_type === 'withdrawl' && props.balance < 500){
+        if(transaction.transaction_type === 'withdrawl' && props.balance - transaction.amount < 500){
             e.preventDefault()
             setStatus("warning")
-            console.log("warning")
             setStatusText("Insufficient Funds")
             setOpen(true)
         }
