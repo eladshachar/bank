@@ -1,11 +1,8 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import './TransactionForm.css'
-import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import MuiAlert from '@mui/material/Alert';
+import addTransactionToAPI from '../../../API-calls/addTransactionToAPI';
 
 const initialTransactionValues ={
     transaction_type: "deposit",
@@ -41,20 +38,12 @@ export default function TransactionForm() {
     
 
     const addTransaction = () => {
-        axios.post('http://127.0.0.1:8000/transactions', transaction)
-        .then((response)=> {
-            console.log(response.status)
-            setStatus("success")  
-            setStatusText("Added successfully!") 
+        
+        addTransactionToAPI(transaction).then((res)=> {
+            res == true ? setStatus("success") : setStatus("error")
+            res == true ? setStatusText("Added successfully!") : setStatusText("Failed")
+            setOpen(true)
         })
-        .catch((error)=> {
-            setStatus("error")
-            setStatusText("Failed")
-            console.log(error)
-        })
-
-        setOpen(true)
-
     }
 
 

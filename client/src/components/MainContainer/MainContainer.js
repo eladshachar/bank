@@ -1,10 +1,12 @@
 import './MainContainer.css'
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
-import axios from 'axios'
 import Operations from '../Operations/Operations';
 import Expenses from '../Expenses/Expenses';
 import Transactions from '../Transactions/Transactions';
+import getTransactionsFromAPI from '../../API-calls/getTransactionsFromAPI';
+import getFilteredTransactionsFromAPI from '../../API-calls/getFilteredTansactionsFromAPI';
+import removeTransactionFromAPI from '../../API-calls/removeTransactionFromAPI';
 
 
 function MainContainer(props) {
@@ -28,32 +30,26 @@ function MainContainer(props) {
   }
 
   const getAllTransactions = () => {
-    axios.get('http://127.0.0.1:8000/transactions').then((res) => { 
-      res !== null && Array.isArray(res.data) ? setTransactions(res.data) : setTransactions([])
-    })
-    .catch((error)=> {
-      console.log(error)
+    
+    getTransactionsFromAPI().then(res=> {
+        setTransactions(res)
     })
   }
 
-  const removeTransaction = async(id) => {
-    axios.delete(`http://127.0.0.1:8000/transactions/${id}`).then(()=> {
-      getAllTransactions()
-    })
-    .catch((error)=> {
-      console.log(error)
-    })
-  }
 
   const filterByCategory = category => {
-    axios.get(`http://127.0.0.1:8000/transactions?category=${category}`).then((result)=> { 
-      console.log(result)  
-      result !== null && Array.isArray(result.data) ? setFilteredTransactions(result.data) : setFilteredTransactions([])
-    })
-    .catch((error)=> {
-      console.log(error)
+    
+    getFilteredTransactionsFromAPI(category).then(res=> {
+        setFilteredTransactions(res)
     })
   }
+
+  const removeTransaction = id => {
+    removeTransactionFromAPI(id).then(()=> {
+        getAllTransactions()
+    })
+  }
+
 
   const calculateBalance = () => {
     props.calculateBalance(transactions)
