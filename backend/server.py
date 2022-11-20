@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-from routes import transactions_route
+from routes import transactions_router, categories_router
 
 app = FastAPI()
 
@@ -20,7 +20,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(transactions_route)
+app.include_router(transactions_router.transactions_route)
+app.include_router(categories_router.categories_route)
 
 if __name__ == "__main__":
     uvicorn.run("server:app", host="localhost", port=8007, reload=True)

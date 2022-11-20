@@ -23,13 +23,7 @@ def get_transactions(category = None):
  
     
 
-
-@transactions_route.get('/categories', status_code=status.HTTP_200_OK)
-def get_categories_breakdown():
-    return db.get_categories()
-
-
-@transactions_route.post('/operations', status_code=status.HTTP_201_CREATED)
+@transactions_route.post('/transactions', status_code=status.HTTP_201_CREATED)
 def add_transaction(transaction: Transaction):
     return db.insert_transaction(transaction)
 

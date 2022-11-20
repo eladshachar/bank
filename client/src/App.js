@@ -1,8 +1,8 @@
 import './App.css';
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
-import Balance from './components/Balance/Balance';
 import MainContainer from './components/MainContainer/MainContainer';
+import Header from './components/Header/Header';
 
 
 function App() {
@@ -22,12 +22,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <div id="header">
-          <Link to='/' className='link'>Home </Link>
-          <Link to='/operations' className='link'>Operations </Link>
-          <Link to='/expenses' className='link'>Expenses </Link>
-          <Balance balance={balance}/>
-        </div>
+        <Header balance={balance}/>
         <MainContainer calculateBalance={calculateBalance}/>
       </div>
     </Router>

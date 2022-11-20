@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import Category from '../Category/Category'
+import Category from './Category/Category'
 import Transactions from '../Transactions/Transactions'
 import './Expenses.css'
 
