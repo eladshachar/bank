@@ -14,6 +14,7 @@ connection = pymysql.connect(
 
 def insert_transaction(transaction: Transaction):
     try:
+        connection.ping()
         with connection.cursor() as cursor:
             query = f"""
             INSERT INTO transactions (transaction_type, product, category, vendor, num_items, amount)
@@ -27,6 +28,7 @@ def insert_transaction(transaction: Transaction):
 
 def get_categories():
     try:
+        connection.ping()
         with connection.cursor() as cursor:
             query = 'SELECT category As name, SUM(amount) AS sum FROM transactions WHERE transaction_type = "withdrawl" GROUP BY category;'
             cursor.execute(query)
@@ -38,6 +40,7 @@ def get_categories():
 
 def get_all_transactions():
     try:
+        connection.ping()
         with connection.cursor() as cursor:
             query = 'SELECT * FROM transactions;'
             cursor.execute(query)
@@ -49,6 +52,7 @@ def get_all_transactions():
 
 def delete_transaction(id: int):
     try:
+        connection.ping()
         with connection.cursor() as cursor:
             query = f'DELETE FROM transactions WHERE transaction_id={id};'
             cursor.execute(query)
@@ -59,6 +63,7 @@ def delete_transaction(id: int):
 
 def get_transactions_by_category(category: str):
     try:
+        connection.ping()
         with connection.cursor() as cursor:
             query = f'SELECT * FROM transactions WHERE category = "{category}"'
             cursor.execute(query)
@@ -70,6 +75,7 @@ def get_transactions_by_category(category: str):
 
 def check_transaction_existence(id: int):
     try:
+        connection.ping()
         with connection.cursor() as cursor:
             query = f'SELECT * FROM transactions WHERE transaction_id = {id}'
             cursor.execute(query)

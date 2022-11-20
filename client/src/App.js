@@ -17,7 +17,7 @@ function App() {
     });
 
     setBalance(newBalance)
-}
+  }
 
   return (
     <Router>

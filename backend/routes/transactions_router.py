@@ -1,5 +1,4 @@
 from fastapi import APIRouter, status, HTTPException
-from pydantic import BaseModel
 from transaction import Transaction
 import DBmethods as db
 
@@ -25,8 +24,10 @@ def get_transactions(category = None):
 
 @transactions_route.post('/transactions', status_code=status.HTTP_201_CREATED)
 def add_transaction(transaction: Transaction):
-    return db.insert_transaction(transaction)
-
+    try:
+        return db.insert_transaction(transaction)
+    except:
+        raise HTTPException(status_code=400, detail="Bad request")
 
 @transactions_route.delete('/transactions/{id}', status_code=status.HTTP_200_OK)
 async def remove_transaction(id: int):

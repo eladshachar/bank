@@ -1,6 +1,4 @@
 from fastapi import APIRouter, status, HTTPException
-from pydantic import BaseModel
-from transaction import Transaction
 import DBmethods as db
 
 categories_route = APIRouter()
