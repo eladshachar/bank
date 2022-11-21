@@ -5,7 +5,7 @@ export default function Operations(props) {
 
     return(
         <div>
-           <TransactionForm balance={props.balance}/> 
+           <TransactionForm balance={props.balance} refreshTransactionsDisplay={props.refreshTransactionsDisplay}/> 
         </div>
     )
 }

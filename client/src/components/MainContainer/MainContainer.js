@@ -1,6 +1,6 @@
 import './MainContainer.css'
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import Expenses from './Expenses/Expenses';
 import Transactions from './Transactions/Transactions';
 import getTransactionsFromAPI from '../../API-calls/getTransactionsFromAPI';
@@ -13,17 +13,16 @@ function MainContainer(props) {
 
   const [transactions, setTransactions] = useState([])
   const [filteredTransactions, setFilteredTransactions] = useState([])
-  const [currentCategory, setCurrentCategory] = useState("nothing")
+  const [currentCategory, setCurrentCategory] = useState("")
 
   
   useEffect(() => {
-    getAllTransactions()
+    refreshTransactionDisplay()
   }, [])
 
 
   useEffect(()=> {
     calculateBalance()
-    filterByCategory(currentCategory)
   }, [transactions])
 
   
@@ -47,9 +46,14 @@ function MainContainer(props) {
   }
 
 
+  const refreshTransactionDisplay = () => {
+    getAllTransactions()
+    filterByCategory(currentCategory)
+  }
+
   const removeTransaction = id => {
     removeTransactionFromAPI(id).then(()=> {
-        getAllTransactions()
+        refreshTransactionDisplay()
     })
   }
 
@@ -62,7 +66,7 @@ function MainContainer(props) {
   return (
     <div id='main-container'>
         <Route path="/" exact render={()=> <Transactions transactions={transactions} removeTransaction={removeTransaction}/>}/>
-        <Route path='/operations' exact render={()=> <Operations balance={props.balance}/>}/>
+        <Route path='/operations' exact render={()=> <Operations balance={props.balance} refreshTransactionsDisplay={refreshTransactionDisplay}/>}/>
         <Route path='/expenses' exact render={()=> <Expenses filteredTransactions={filteredTransactions} filterByCategory={filterByCategory} removeTransaction={removeTransaction} updateCategory={updateCategory}/>}/>
     </div>
   );

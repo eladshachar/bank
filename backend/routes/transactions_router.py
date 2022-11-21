@@ -9,11 +9,7 @@ transactions_route = APIRouter()
 def get_transactions(category = None):
     
     if(category):
-        try:
-            return db.get_transactions_by_category(category)
-        except:
-            raise HTTPException(status_code=404, detail="Bad request: category does not exist")
-
+        return db.get_transactions_by_category(category)
     else:
         try:
             return db.get_all_transactions()
@@ -24,10 +20,11 @@ def get_transactions(category = None):
 
 @transactions_route.post('/transactions', status_code=status.HTTP_201_CREATED)
 def add_transaction(transaction: Transaction):
-    try:
-        return db.insert_transaction(transaction)
-    except:
-        raise HTTPException(status_code = status.HTTP_400_BAD_REQUEST, detail="Bad request: transaction was not added")
+
+    if transaction.amount > 5000:
+        raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE, detail="Transactions larger than 5000$ are not allowed")
+    else:
+        db.insert_transaction(transaction)    
 
 
 @transactions_route.delete('/transactions/{id}', status_code=status.HTTP_200_OK)
